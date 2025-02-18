@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Safety &amp; Reliability Course OBJ Questions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f0f4f8, #d9e2ec);
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+            max-width: 900px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+        }
+
+        .question-container {
+            background: #fff;
+            border: 1px solid #e0e6ed;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-container p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .options label {
+            background: #e1f5fe;
+            border-radius: 5px;
+            padding: 8px 12px;
+            margin: 5px 0;
+            display: block;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .options label:hover {
+            background: #b3e5fc;
+        }
+
+        #feedback {
+            font-weight: 700;
+            margin: 10px 0;
+            font-size: 20px;
+        }
+
+        #scoreboard {
+            margin-top: 20px;
+            padding: 15px;
+            border-top: 2px solid #1976d2;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #1976d2;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 10px 16px;
+            margin: 10px 5px 0;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0d47a1;
+        }
+
+        #modeBtn {
+            background-color: #388e3c;
+        }
+
+        #modeBtn:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Safety &amp; Reliability Course OBJ Questions</h1>
+    <div id="quiz"></div>
+    <div id="feedback"></div>
+    <div>
+        <button id="submitBtn">Submit Answer</button>
+        <button id="nextBtn" style="display:none;">Next Question</button>
+        <button id="modeBtn">Retry Wrong Answers</button>
+    </div>
+    <div id="scoreboard">
+        <p>Question: <span id="currentIndexDisplay">1</span> / <span id="totalQuestionsDisplay"></span></p>
+        <p>Correct: <span id="correctCountDisplay">0</span></p>
+        <p>Wrong: <span id="wrongCountDisplay">0</span></p>
+        <p>Mode: <span id="modeDisplay">All Questions</span></p>
+    </div>
+
+    <script>
+        // Combined questions from Lectures 1–4 and Tutorials 1 & 2.
+        // (You can further add more questions to fully cover every possible topic.)
+      const allQuestions = [
+  // === Tutorials 1 (Questions 1–60) ===
+  {
+    "question": "When did the concept of reliability and safety start compared to other conventional engineering branches?",
+    "options": ["Earlier", "Later", "At the same time", "It is not mentioned"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who introduced the concept that 'a chain is no stronger than its weakest link'?",
+    "options": ["Eric Pernchka", "Pierce", "Van Braun", "Watson"],
+    "correctIndex": 1
+  },
+  {
+    "question": "In which decade were aircraft accidents first recorded in the form of statistical reports?",
+    "options": ["1920s", "1930s", "1940s", "1950s"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who defined the first risk objective for aircraft safety in 1939?",
+    "options": ["Pierce", "Pugsley", "Van Braun", "Watson"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What was the accident rate limit set by Pugsley for aircraft safety?",
+    "options": ["10^-3/h", "10^-4/h", "10^-5/h", "10^-6/h"],
+    "correctIndex": 2
+  },
+  {
+    "question": "During which war were formal reliability techniques first developed?",
+    "options": ["World War I", "World War II", "Cold War", "Korean War"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What was the primary cause of defense equipment failure during World War II?",
+    "options": ["Mechanical failure", "Electronic system failure", "Human error", "Poor maintenance"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Where did the first predictive reliability models appear?",
+    "options": ["USA", "Germany", "UK", "France"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who worked on the Vergeltungswaffen1 missile?",
+    "options": ["Pierce", "Van Braun", "Pugsley", "Watson"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What principle did Van Braun's team work on?",
+    "options": ["The chain is as strong as its strongest link", "The chain is no stronger than its weakest link", "The chain is only as strong as its average link", "The chain is independent of its links"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Who introduced the concept of survival probability for system components?",
+    "options": ["Pierce", "Eric Pernchka", "Van Braun", "Watson"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is Lusser's formula used for?",
+    "options": ["Calculating the reliability of parallel systems", "Calculating the reliability of series systems", "Calculating the reliability of redundant systems", "Calculating the reliability of standby systems"],
+    "correctIndex": 1
+  },
+  {
+    "question": "When was the Advisory Group on Reliability of Electronic Equipment (AGREE) created?",
+    "options": ["1940", "1952", "1961", "1975"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What did the AGREE report recommend?",
+    "options": ["Reliability growth tests", "Demonstration tests", "Both a and b", "Neither a nor b"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Who introduced the 'fault tree analysis' concept?",
+    "options": ["Pierce", "Watson", "Van Braun", "Pugsley"],
+    "correctIndex": 1
+  },
+  {
+    "question": "In which year was fault tree analysis introduced?",
+    "options": ["1952", "1961", "1975", "1980"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which industry devised the Failure Mode and Effects Analysis (FMEA) method?",
+    "options": ["Automotive", "Aeronautics", "Nuclear", "Telecommunications"],
+    "correctIndex": 1
+  },
+  {
+    "question": "When were probabilistic approaches increasingly integrated into aircraft design?",
+    "options": ["1940s", "1950s", "1960s", "1970s"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Which journal was born during the 1960s?",
+    "options": ["IEEE Transactions on Reliability", "Journal of Safety Engineering", "Journal of Quality Control", "Journal of Aeronautics"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Who contributed to the development of the mathematics of reliability?",
+    "options": ["Birnbaum", "Barlow", "Proschan", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which tool was developed by Watson of Bell Telephone Laboratories?",
+    "options": ["Event tree", "Fault tree", "FMEA", "Markov models"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which tool was developed by WASH-1400 in 1975?",
+    "options": ["Fault tree", "Event tree", "FMEA", "Markov models"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which tool was devised in the aeronautics industry in the 1960s?",
+    "options": ["Fault tree", "Event tree", "FMEA", "Markov models"],
+    "correctIndex": 2
+  },
+  {
+    "question": "Who developed Markov models?",
+    "options": ["Andrei A. Markov", "Watson", "Van Braun", "Eric Pernchka"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Why is reliability increasingly important in engineering systems?",
+    "options": ["Due to system complexity", "Due to competition", "Due to public pressure", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What percentage of total sales revenue does quality control account for in manufacturers?",
+    "options": ["5-7%", "7-10%", "10-12%", "12-15%"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is one of the factors driving the need for better safety?",
+    "options": ["Government regulations", "Public pressure", "Lawsuits", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "How many parts does a Boeing 747 jumbo jet consist of?",
+    "options": ["1 million", "2.5 million", "4.5 million", "6 million"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the main goal of reliability, quality, and safety professionals?",
+    "options": ["To reduce costs", "To improve product reliability", "To work closely during design and other phases", "To increase production speed"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is one of the consequences of failure in engineering systems?",
+    "options": ["Minor inconvenience", "Personal injury", "Economic loss", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which of the following is an example of a major accident?",
+    "options": ["Three Mile Island", "Chernobyl", "Bhopal gas leak", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What are some causes of failure in engineering systems?",
+    "options": ["Bad engineering design", "Faulty manufacturing", "Human error", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What does reliability deal with?",
+    "options": ["The failure concept", "The consequences after failure", "Both a and b", "Neither a nor b"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does safety deal with?",
+    "options": ["The failure concept", "The consequences after failure", "Both a and b", "Neither a nor b"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the purpose of inherent safety systems/measures?",
+    "options": ["To prevent failures", "To minimize the consequences of failures", "To increase system complexity", "To reduce costs"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is one of the factors emphasizing the need for higher reliability and safety?",
+    "options": ["Increased product complexity", "Accelerated growth of technology", "Public awareness", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "Which of the following is an application of reliability and safety engineering?",
+    "options": ["Design evaluation", "Identification of critical components", "Redundancy requirements", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is the purpose of reliability and safety engineering?",
+    "options": ["To increase design life", "To reduce the likelihood of failures", "To reduce downtime", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the factors driving the need for better quality in products?",
+    "options": ["Competition", "Customer demand", "Lawsuits", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is the estimated cost of accidents in the U.S. in 1996?",
+    "options": ["100 billion", "121 billion", "150 billion", "200 billion"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is one of the factors driving the need for better safety in the workplace?",
+    "options": ["Government regulations", "Public pressure", "Lawsuits", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the goals of reliability and safety engineering?",
+    "options": ["To increase operational use", "To reduce life cycle costs", "To eliminate failures", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the factors driving the need for better reliability in systems?",
+    "options": ["System complexity", "Competition", "Past system failures", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the applications of reliability and safety engineering in design?",
+    "options": ["Determination of derating/factor of safety", "Environmental comparisons", "Redundancy requirements", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the factors driving the need for better quality in the Internet economy?",
+    "options": ["Competition", "Customer demand", "Lawsuits", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the factors driving the need for better safety in the nuclear sector?",
+    "options": ["Government regulations", "Public pressure", "Lawsuits", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the factors driving the need for better reliability in the aeronautical field?",
+    "options": ["System complexity", "Competition", "Past system failures", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the applications of reliability and safety engineering in maintenance?",
+    "options": ["Establishment of preventive maintenance programs", "Repair and spare-part management", "Replacement and residual life estimations", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the factors driving the need for better reliability in the automotive industry?",
+    "options": ["System complexity", "Competition", "Past system failures", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is one of the applications of reliability and safety engineering in safety management?",
+    "options": ["Life cycle cost analysis", "Safety management", "Design evaluation", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What does the bath-tub curve represent?",
+    "options": ["The failure rate over time", "The reliability of a system", "The safety of a system", "The quality of a system"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What are the three phases of the bath-tub curve?",
+    "options": ["Early failure, random failure, wear-out failure", "Early failure, constant failure, wear-out failure", "Random failure, constant failure, wear-out failure", "Early failure, random failure, constant failure"],
+    "correctIndex": 1
+  },
+  {
+    "question": "In which phase of the bath-tub curve do failures occur due to manufacturing defects?",
+    "options": ["Early failure", "Random failure", "Wear-out failure", "Constant failure"],
+    "correctIndex": 0
+  },
+  {
+    "question": "In which phase of the bath-tub curve do failures occur due to aging?",
+    "options": ["Early failure", "Random failure", "Wear-out failure", "Constant failure"],
+    "correctIndex": 2
+  },
+  {
+    "question": "In which phase of the bath-tub curve is the failure rate relatively constant?",
+    "options": ["Early failure", "Random failure", "Wear-out failure", "Constant failure"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the hazard rate in the early failure phase of the bath-tub curve?",
+    "options": ["High", "Low", "Constant", "Zero"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the hazard rate in the wear-out failure phase of the bath-tub curve?",
+    "options": ["High", "Low", "Constant", "Zero"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the hazard rate in the random failure phase of the bath-tub curve?",
+    "options": ["High", "Low", "Constant", "Zero"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the primary cause of failures in the early failure phase?",
+    "options": ["Manufacturing defects", "Aging", "Random events", "Human error"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary cause of failures in the wear-out failure phase?",
+    "options": ["Manufacturing defects", "Aging", "Random events", "Human error"],
+    "correctIndex": 1
+  },
+  // === Tutorials 2 (Questions 61–120) ===
+  {
+    "question": "What is the primary reason for failures in engineering systems?",
+    "options": ["Design error", "Poor manufacturing techniques", "Substandard components", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What are the three stages of failures in the life of a product?",
+    "options": ["Early stage, operating stage, wear‐out stage", "Design stage, production stage, usage stage", "Early failure, random failure, constant failure", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the shape of the life characteristic curve called?",
+    "options": ["S-curve", "Bath-tub curve", "Linear curve", "Exponential curve"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the hazard rate in the early failure region?",
+    "options": ["High", "Low", "Constant", "Zero"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the hazard rate in the useful life region?",
+    "options": ["High", "Low", "Constant", "Zero"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the hazard rate in the wear‐out failure region?",
+    "options": ["High", "Low", "Constant", "Zero"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What should be done with components in the wear‐out failure region?",
+    "options": ["Replace or scrap them", "Repair them", "Continue using them", "Increase their load"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary cause of failures in the early failure region?",
+    "options": ["Manufacturing defects", "Aging", "Random events", "Human error"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary cause of failures in the wear‐out failure region?",
+    "options": ["Manufacturing defects", "Aging", "Random events", "Human error"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the primary cause of failures in the useful life region?",
+    "options": ["Manufacturing defects", "Aging", "Random events", "Human error"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the first step in improving reliability?",
+    "options": ["Measure and assess the present level of reliability", "Simplify the design", "Use redundancy", "Improve quality control"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How can reliability be improved at the design stage?",
+    "options": ["Simplify the design", "Use de-rating", "Use redundancy", "All of the above"],
+    "correctIndex": 3
+  },
+  {
+    "question": "How can reliability be improved at the production stage?",
+    "options": ["Use good components", "Implement quality control practices", "Both a and b", "Neither a nor b"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the only resort for improving reliability during the usage stage?",
+    "options": ["Good maintenance practices", "Redundancy", "De-rating", "Quality control"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is safety a combination of?",
+    "options": ["Reliability and consequences", "Quality and reliability", "Design and manufacturing", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the purpose of protection/safety systems?",
+    "options": ["To anticipate failures", "To reduce consequences", "Both a and b", "Neither a nor b"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is reliability?",
+    "options": ["The probability that an item will perform its specified mission satisfactorily", "The degree to which an item satisfies the user's requirements", "The conservation of human life", "The inability of a product to operate within specified guidelines"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is quality?",
+    "options": ["The probability that an item will perform its specified mission satisfactorily", "The degree to which an item satisfies the user's requirements", "The conservation of human life", "The inability of a product to operate within specified guidelines"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is safety?",
+    "options": ["The probability that an item will perform its specified mission satisfactorily", "The degree to which an item satisfies the user's requirements", "The conservation of human life", "The inability of a product to operate within specified guidelines"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is failure?",
+    "options": ["The probability that an item will perform its specified mission satisfactorily", "The degree to which an item satisfies the user's requirements", "The conservation of human life", "The inability of a product to operate within specified guidelines"],
+    "correctIndex": 3
+  },
+  {
+    "question": "What is mission time?",
+    "options": ["The time during which the product is carrying out its defined mission", "The time taken to manufacture a product", "The time taken to repair a product", "The time taken to design a product"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is redundancy?",
+    "options": ["The existence of more than one means to accomplish a specified function", "The inability of a product to operate within specified guidelines", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is failure mode?",
+    "options": ["The abnormality of items/parts performance which causes the item to be considered as failed", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is hazard rate?",
+    "options": ["The rate of change of the number of items that have failed over the number of items that have survived", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is process inspection?",
+    "options": ["The intermittent examination and measurement of processing variables", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is process average quality?",
+    "options": ["The expected quality of items from a specific process", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a sample?",
+    "options": ["A group of items chosen randomly from a lot", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is sample size?",
+    "options": ["The number of items chosen randomly from a lot", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is quality control?",
+    "options": ["A management function to prevent the production of defective items", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a control chart?",
+    "options": ["A chart that presents control limits", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is an accident?",
+    "options": ["An undesired and unplanned act", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is safety management?",
+    "options": ["The accomplishment of safety through the effort of other people", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a safety process?",
+    "options": ["A series of procedures to identify and satisfy safety requirements", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is safety assessment?",
+    "options": ["A quantitative/qualitative determination of safety", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is an unsafe condition?",
+    "options": ["Any condition that will lead to an accident", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What are confidence limits?",
+    "options": ["The upper and lower extremes of the confidence interval", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a quality measure?",
+    "options": ["A qualitative measure of the characteristics and features of an item or service", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is quality management?",
+    "options": ["The totality of functions involved in determining and achieving quality", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is reliability demonstration?",
+    "options": ["Evaluating item capability to satisfy required reliability by actually operating it", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a safety function?",
+    "options": ["A function carried out by items to prevent the occurrence of accidents", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a reliability model?",
+    "options": ["A model for predicting, estimating, or assessing reliability", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the ISO 3534 definition of quality?",
+    "options": ["The totality of features and characteristics of a product or service that bear on its ability to satisfy stated and implied needs", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the IEEE definition of reliability?",
+    "options": ["The ability of a system or component to perform its required functions under stated conditions for a specified period of time", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is maintainability?",
+    "options": ["The ability of an entity to be restored using stated procedures and resources", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is corrective maintenance?",
+    "options": ["Maintenance carried out after fault recognition", "Maintenance carried out at predetermined intervals", "Maintenance carried out continuously", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is preventive maintenance?",
+    "options": ["Maintenance carried out after fault recognition", "Maintenance carried out at predetermined intervals", "Maintenance carried out continuously", "None of the above"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is predictive maintenance?",
+    "options": ["Maintenance carried out after fault recognition", "Maintenance carried out at predetermined intervals", "Maintenance carried out continuously based on observed conditions", "None of the above"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is availability?",
+    "options": ["The probability that a product or system is in operation at a specified time", "The existence of more than one means to accomplish a specified function", "The conservation of human life", "The degree to which an item satisfies the user's requirements"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the simplest representation of availability?",
+    "options": ["A = Uptime / (Uptime + Downtime)", "A = Uptime / Downtime", "A = Downtime / Uptime", "A = Downtime / (Uptime + Downtime)"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does uptime depend on?",
+    "options": ["Reliability of the system", "Maintainability of the system", "Both reliability and maintainability", "Neither"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What does downtime depend on?",
+    "options": ["Reliability of the system", "Maintainability of the system", "Both reliability and maintainability", "Neither"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the relationship between reliability and availability for a non-repairable system?",
+    "options": ["Availability is the same as reliability", "Availability is higher than reliability", "Availability is lower than reliability", "There is no relationship"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the relationship between reliability and availability for a repairable system?",
+    "options": ["Availability is the same as reliability", "Availability is higher than reliability", "Availability is lower than reliability", "There is no relationship"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the primary purpose of preventive maintenance?",
+    "options": ["To reduce the probability of failure", "To repair after failure", "To monitor continuously", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary purpose of predictive maintenance?",
+    "options": ["To reduce the probability of failure", "To repair after failure", "To monitor continuously based on observed conditions", "None of the above"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the primary purpose of corrective maintenance?",
+    "options": ["To reduce the probability of failure", "To repair after failure", "To monitor continuously", "None of the above"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the primary purpose of quality management?",
+    "options": ["To determine and achieve quality", "To reduce the probability of failure", "To monitor continuously", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary purpose of safety management?",
+    "options": ["To accomplish safety through the effort of other people", "To reduce the probability of failure", "To monitor continuously", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary purpose of reliability demonstration?",
+    "options": ["To evaluate item capability to satisfy required reliability", "To reduce the probability of failure", "To monitor continuously", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary purpose of a reliability model?",
+    "options": ["To predict, estimate, or assess reliability", "To reduce the probability of failure", "To monitor continuously", "None of the above"],
+    "correctIndex": 0
+  },
+  // === Lecture 3: Introduction to Risks and Hazards (Questions 121–160) ===
+  {
+    "question": "What is a hazard?",
+    "options": ["A potential source of harm", "A design defect", "An unavoidable accident", "A maintenance issue"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How is risk defined?",
+    "options": ["Risk = Likelihood × Severity", "Risk = Likelihood + Severity", "Risk = Severity - Likelihood", "Risk = Likelihood ÷ Severity"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does 'severity' refer to in risk assessment?",
+    "options": ["The frequency of an event", "The impact or consequence of an event", "The probability of occurrence", "The duration of an event"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What does 'likelihood' refer to in risk assessment?",
+    "options": ["The impact of an event", "The probability of occurrence", "The cost of an event", "The duration of an event"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is the ALARP principle?",
+    "options": ["As Low As Reasonably Practicable", "At Least A Risk Percentage", "As Long As Risks Persist", "None of the above"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is meant by tolerable risk?",
+    "options": ["Risk level that is acceptable after control measures", "Risk level that must be eliminated", "Risk level that is ignored", "Risk level that is minimal"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the main goal of risk reduction?",
+    "options": ["To completely eliminate all risks", "To reduce risk to a tolerable level", "To increase risk awareness", "To document all hazards"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which of the following best describes individual risk?",
+    "options": ["The risk to a group of people", "The risk of a fatal accident per person per year", "The total system risk", "The average risk in a population"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is a common method to set tolerable risk levels in industries?",
+    "options": ["Using fatal accident rate (FAR)", "Using design margins", "Using cost-benefit analysis", "Using quality control charts"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does FAR stand for?",
+    "options": ["Fatal Accident Rate", "Failure Analysis Ratio", "Field Accident Report", "First Aid Response"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How is FAR typically measured?",
+    "options": ["Fatalities per 10^8 working hours", "Fatalities per 10^6 working hours", "Fatalities per year", "Fatalities per incident"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which category of risk is considered negligible?",
+    "options": ["Risks commonly accepted in everyday life", "Risks that require immediate action", "Risks that are documented", "Risks with high severity"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which category of risk is considered unacceptable?",
+    "options": ["Risks that are minimal", "Risks that are tolerable", "Risks with losses far outweighing benefits", "Risks that are normal"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is the first step in risk assessment?",
+    "options": ["Identify hazards", "Implement control measures", "Quantify risk", "Review safety policies"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which of the following is a qualitative risk evaluation method?",
+    "options": ["Risk matrix", "Monte Carlo simulation", "Reliability block diagram", "Fault tree analysis"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which of the following is a quantitative risk evaluation method?",
+    "options": ["Fault tree analysis", "Risk matrix", "Expert judgment", "Checklist method"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does risk reduction imply in safety engineering?",
+    "options": ["Increasing system risk", "Implementing protection measures", "Reducing system performance", "Ignoring potential hazards"],
+    "correctIndex": 1
+  },
+  {
+    "question": "Which factor does NOT directly influence risk assessment?",
+    "options": ["Likelihood of occurrence", "Severity of consequences", "Color of equipment", "Exposure duration"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is meant by residual risk?",
+    "options": ["Risk remaining after control measures are implemented", "Risk that is completely eliminated", "Initial risk before controls", "Risk unrelated to hazards"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What role does human error play in risk?",
+    "options": ["It is not considered", "It can increase risk", "It always reduces risk", "It is only a minor factor"],
+    "correctIndex": 1
+  },
+  {
+    "question": "What is an example of a physical hazard?",
+    "options": ["High pressure in a vessel", "A software bug", "Inadequate training", "Poor lighting"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is an example of a chemical hazard?",
+    "options": ["Corrosive substances", "Excessive noise", "High temperatures", "Vibration"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How can risk be mitigated in a chemical process plant?",
+    "options": ["Implementing safety instrumented systems", "Increasing production speed", "Reducing staff", "Ignoring minor leaks"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does a safety instrumented system (SIS) do?",
+    "options": ["Monitors and automatically mitigates hazardous conditions", "Increases production output", "Controls financial risk", "Monitors market trends"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which document typically outlines safety requirements in a process plant?",
+    "options": ["Process Hazard Analysis (PHA)", "Maintenance log", "Quality control manual", "Marketing plan"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the purpose of a risk register?",
+    "options": ["To document identified risks and control measures", "To list all equipment", "To record financial data", "To schedule maintenance tasks"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which of the following is a key step in hazard analysis?",
+    "options": ["Identifying potential hazards", "Eliminating all hazards", "Documenting only the positive outcomes", "Ignoring minor risks"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How does increasing system complexity affect risk?",
+    "options": ["It typically increases risk", "It decreases risk", "It has no effect", "It always makes risk negligible"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the significance of the 'as low as reasonably practicable' (ALARP) concept?",
+    "options": ["It balances risk reduction and cost", "It demands zero risk", "It ignores cost", "It focuses only on severity"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does 'likelihood' measure in risk analysis?",
+    "options": ["The frequency of an event", "The impact of an event", "The cost of mitigation", "The duration of exposure"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does 'consequence' measure in risk analysis?",
+    "options": ["The impact of an event", "The probability of occurrence", "The ease of detection", "The number of safety systems"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the benefit of using both qualitative and quantitative risk assessments?",
+    "options": ["They provide a comprehensive understanding of risk", "They always produce the same result", "They eliminate the need for control measures", "They reduce the need for documentation"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the primary focus of safety engineering?",
+    "options": ["Preventing loss of life and damage", "Increasing production speed", "Improving product aesthetics", "Reducing costs only"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which factor is not a component of risk?",
+    "options": ["Hazard", "Exposure", "Cost", "Severity"],
+    "correctIndex": 2
+  },
+  {
+    "question": "What is a common barrier to effective risk management?",
+    "options": ["Underestimating hazards", "Overestimating safety controls", "Excessive documentation", "High safety budgets"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is meant by 'risk perception'?",
+    "options": ["How individuals view and assess risk", "The statistical probability of risk", "The technical measurement of risk", "Risk without consequences"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which is an example of inherent risk?",
+    "options": ["Risks that cannot be entirely eliminated", "Risks that are completely avoidable", "Risks introduced by poor design", "Risks that are temporary"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the role of emergency response planning in risk management?",
+    "options": ["To prepare for and mitigate the impact of incidents", "To increase the likelihood of accidents", "To replace risk assessments", "To document financial losses"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How can training contribute to risk reduction?",
+    "options": ["By increasing awareness and proper response", "By replacing safety systems", "By eliminating hazards completely", "By reducing maintenance"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the importance of communication in risk management?",
+    "options": ["It ensures all stakeholders are informed", "It increases the risk", "It delays response", "It is not important"],
+    "correctIndex": 0
+  },
+  // === Lecture 4: System Reliability Modelling (Questions 161–200) ===
+  {
+    "question": "What is a Reliability Block Diagram (RBD)?",
+    "options": ["A graphical representation of a system’s success logic", "A risk analysis tool", "A financial chart", "A maintenance schedule"],
+    "correctIndex": 0
+  },
+  {
+    "question": "In a series RBD, how is system reliability calculated?",
+    "options": ["By multiplying component reliabilities", "By adding component reliabilities", "By averaging them", "By taking the maximum reliability"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does a parallel RBD configuration imply?",
+    "options": ["The system fails only if all components fail", "The system fails if any component fails", "Components are arranged in series", "Redundant components are not used"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which modelling technique is best for considering different failure modes?",
+    "options": ["Fault Tree Analysis (FTA)", "RBD", "Simple addition", "Graphical plotting"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the purpose of Monte Carlo Simulation in reliability modelling?",
+    "options": ["To statistically simulate system performance", "To design block diagrams", "To perform qualitative analysis", "To conduct market research"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does the failure rate λ(u) represent?",
+    "options": ["The rate of failure at time u", "The total system reliability", "The average maintenance time", "The cost of failure"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a series system?",
+    "options": ["A system where all components must function for success", "A system where one component can fail without affecting success", "A system with redundant components", "A non-operational system"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a parallel system?",
+    "options": ["A system where failure occurs only if all components fail", "A system where any single failure causes system failure", "A series system", "A system with no redundancy"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How does redundancy improve system reliability?",
+    "options": ["By providing backup components", "By reducing system complexity", "By eliminating failure", "By increasing maintenance"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the main limitation of RBDs?",
+    "options": ["They may not account for different failure modes", "They are too complex to understand", "They require expensive software", "They ignore component reliabilities"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does FTA stand for?",
+    "options": ["Fault Tree Analysis", "Failure Timing Assessment", "Functional Testing Algorithm", "Field Technical Analysis"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the relationship between reliability and availability for non-repairable systems?",
+    "options": ["They are equal", "Reliability is higher", "Availability is higher", "They are unrelated"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which model is typically used for repairable systems?",
+    "options": ["Markov models", "Series RBD", "Parallel RBD", "Simple addition"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the purpose of a fault tree diagram?",
+    "options": ["To identify the causes of system failures", "To schedule maintenance", "To calculate cost", "To design a product"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How are series systems mathematically modelled?",
+    "options": ["By multiplying the reliability of each component", "By adding the reliability of each component", "By subtracting failures", "By dividing uptime"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How is a parallel system mathematically modelled?",
+    "options": ["By calculating the probability that all components fail", "By multiplying the reliability of each component", "By adding the reliability of each component", "By averaging them"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the main advantage of using Markov models in reliability?",
+    "options": ["They can model dynamic behavior and repair", "They are simpler than RBDs", "They ignore failure modes", "They are qualitative only"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does 'mission time' refer to in reliability modelling?",
+    "options": ["The time period over which the system is required to perform", "The time taken to design a system", "The downtime of a system", "The repair time of a component"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which of the following is a key step in constructing an RBD?",
+    "options": ["Dividing the system into statistically independent blocks", "Adding redundant components randomly", "Ignoring environmental factors", "Focusing only on maintenance"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is one limitation of reliability block diagrams?",
+    "options": ["They may not capture all failure interactions", "They are too detailed", "They are only used in nuclear systems", "They are outdated"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How does environmental and operating condition affect reliability modelling?",
+    "options": ["It must be incorporated into component reliability", "It is irrelevant", "It only affects maintenance", "It is only used in risk analysis"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is meant by 'statistically independent' in RBDs?",
+    "options": ["Component failures do not affect each other", "Components always fail together", "Failure of one component guarantees failure of another", "It is not defined"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a common use of Monte Carlo Simulation in reliability?",
+    "options": ["To estimate system reliability when analytical solutions are difficult", "To design new components", "To manage maintenance schedules", "To calculate quality metrics"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How can maintenance strategies be incorporated into reliability models?",
+    "options": ["By using repairable system models such as Markov models", "By ignoring downtime", "By only using series models", "They cannot be incorporated"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the basic principle behind fault tree analysis?",
+    "options": ["Using Boolean logic to represent failure combinations", "Averaging component reliabilities", "Simple addition of failure rates", "Ignoring rare events"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which simulation technique is mentioned for system reliability modelling?",
+    "options": ["Monte Carlo Simulation", "Time Series Simulation", "Financial Simulation", "Thermal Simulation"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the significance of a 'dummy variable' in reliability equations?",
+    "options": ["It is used for integration in failure rate calculations", "It represents a failed component", "It is a placeholder for unavailable data", "It is not used"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How are RBDs useful in design evaluation?",
+    "options": ["They visually verify success paths", "They predict market trends", "They replace physical testing", "They are used for budgeting"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does the term 'unreliability' refer to in system modelling?",
+    "options": ["The probability of system failure", "The average repair time", "The maintenance cost", "The quality measure"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is one benefit of using reliability models?",
+    "options": ["They help in predicting system performance", "They guarantee zero failure", "They increase component cost", "They eliminate the need for testing"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does the term 'redundancy' mean in reliability engineering?",
+    "options": ["Having extra components to improve reliability", "A design flaw", "A risk management tool", "A cost reduction measure"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How does a series configuration affect overall system reliability?",
+    "options": ["It reduces overall reliability", "It increases overall reliability", "It has no effect", "It doubles reliability"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How does a parallel configuration affect overall system reliability?",
+    "options": ["It increases overall reliability", "It decreases overall reliability", "It has no effect", "It halves reliability"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is a key factor to consider when modelling system reliability?",
+    "options": ["The interdependence of component failures", "The color of components", "The manufacturer's brand", "The installation date"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which modelling technique is best for dynamic scenarios in reliability?",
+    "options": ["Markov models", "Static RBDs", "Simple probability", "Historical data only"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the relationship between uptime and reliability?",
+    "options": ["Higher reliability generally leads to increased uptime", "Higher reliability decreases uptime", "They are unrelated", "Uptime is only a maintenance metric"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What does a 'success path' in an RBD represent?",
+    "options": ["A series of blocks that must all function for system success", "A sequence of failures", "A maintenance schedule", "A financial forecast"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How can system reliability be improved according to modelling?",
+    "options": ["By incorporating redundancy and maintenance", "By reducing quality", "By ignoring failure data", "By increasing system complexity without analysis"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the impact of non-repairable components in reliability models?",
+    "options": ["They are modelled using series configurations", "They are ignored", "They increase system reliability", "They require Markov models"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Why is system reliability modelling important?",
+    "options": ["To predict system performance and guide design improvements", "To increase production costs", "To eliminate all failures", "To replace safety management"],
+    "correctIndex": 0
+  },
+  // === Extra Comprehensive Questions (Questions 201–210) ===
+  {
+    "question": "Which aspect is common to reliability, quality, and safety engineering?",
+    "options": ["They all focus on reducing failure rates", "They focus solely on aesthetics", "They ignore design aspects", "They are unrelated fields"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the main objective of integrating reliability, quality, and safety in design?",
+    "options": ["To ensure products perform satisfactorily and safely over their lifetime", "To reduce manufacturing costs", "To increase market share", "To simplify design only"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How does quality control contribute to reliability?",
+    "options": ["By preventing the production of defective items", "By increasing production speed", "By reducing safety measures", "By ignoring maintenance"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which tool is commonly used in both safety and reliability assessments?",
+    "options": ["Fault Tree Analysis", "Market analysis", "Aesthetic review", "Sales forecasting"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How do risk and reliability differ?",
+    "options": ["Risk focuses on consequences while reliability focuses on failure probability", "They are identical", "Risk is only about cost", "Reliability is about aesthetics"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Which factor can negatively affect both safety and reliability?",
+    "options": ["Poor maintenance", "High-quality components", "Effective design", "Good quality control"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the role of maintenance in reliability engineering?",
+    "options": ["It helps restore system functionality after failures", "It is irrelevant", "It only increases cost", "It decreases system reliability"],
+    "correctIndex": 0
+  },
+  {
+    "question": "How can system complexity affect reliability?",
+    "options": ["Increased complexity generally lowers overall reliability", "It always increases reliability", "It has no effect", "It makes the system immune to failure"],
+    "correctIndex": 0
+  },
+  {
+    "question": "Why is statistical analysis important in reliability engineering?",
+    "options": ["It provides quantitative measures of failure rates and reliability", "It is only used for academic research", "It replaces practical testing", "It only applies to safety, not reliability"],
+    "correctIndex": 0
+  },
+  {
+    "question": "What is the benefit of using a comprehensive set of questions in tutorials?",
+    "options": ["It ensures thorough understanding of all concepts", "It confuses students", "It only covers one topic", "It is not beneficial"],
+    "correctIndex": 0
+  }
+];
+
+        // Global variables for quiz mode ("all" or "wrong")
+        let quizMode = "all";
+        let quizQuestions = allQuestions.slice(); // default: all questions
+        let currentIndex = parseInt(localStorage.getItem('safetyQuizCurrentIndex')) || 0;
+        let correctCount = parseInt(localStorage.getItem('safetyQuizCorrectCount')) || 0;
+        let wrongQuestions = JSON.parse(localStorage.getItem('safetyQuizWrongQuestions')) || [];
+
+        function updateScoreboard() {
+            document.getElementById('currentIndexDisplay').textContent = currentIndex + 1;
+            document.getElementById('totalQuestionsDisplay').textContent = quizQuestions.length;
+            document.getElementById('correctCountDisplay').textContent = correctCount;
+            document.getElementById('wrongCountDisplay').textContent = wrongQuestions.length;
+            document.getElementById('modeDisplay').textContent = quizMode === "all" ? "All Questions" : "Wrong Answers Only";
+        }
+
+        function saveProgress() {
+            localStorage.setItem('safetyQuizCurrentIndex', currentIndex);
+            localStorage.setItem('safetyQuizCorrectCount', correctCount);
+            localStorage.setItem('safetyQuizWrongQuestions', JSON.stringify(wrongQuestions));
+        }
+
+        function loadQuestion() {
+            const quizDiv = document.getElementById('quiz');
+            quizDiv.innerHTML = "";
+            document.getElementById('feedback').textContent = "";
+            if (currentIndex >= quizQuestions.length) {
+                quizDiv.innerHTML = "<h2>Quiz Completed!</h2><p>Your score: " + correctCount + " / " + quizQuestions.length + "</p>";
+                document.getElementById('submitBtn').style.display = "none";
+                document.getElementById('nextBtn').style.display = "none";
+                return;
+            }
+            const qObj = quizQuestions[currentIndex];
+            const container = document.createElement('div');
+            container.className = "question-container";
+            const qText = document.createElement('p');
+            qText.textContent = qObj.question;
+            container.appendChild(qText);
+
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = "options";
+            qObj.options.forEach((opt, idx) => {
+                const label = document.createElement('label');
+                const radio = document.createElement('input');
+                radio.type = "radio";
+                radio.name = "option";
+                radio.value = idx;
+                label.appendChild(radio);
+                label.insertAdjacentText("beforeend", " " + opt);
+                optionsDiv.appendChild(label);
+            });
+            container.appendChild(optionsDiv);
+            quizDiv.appendChild(container);
+        }
+
+        function checkAnswer() {
+            const radios = document.getElementsByName("option");
+            let selected = -1;
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selected = parseInt(radio.value);
+                    break;
+                }
+            }
+            if (selected === -1) {
+                alert("Please select an answer.");
+                return;
+            }
+            const qObj = quizQuestions[currentIndex];
+            const feedbackDiv = document.getElementById('feedback');
+            if (selected === qObj.correctIndex) {
+                feedbackDiv.textContent = "Correct!";
+                correctCount++;
+            } else {
+                feedbackDiv.textContent = "Incorrect! The correct answer is: " + qObj.options[qObj.correctIndex];
+                if (!wrongQuestions.some(q => q.question === qObj.question)) {
+                    wrongQuestions.push(qObj);
+                }
+            }
+            saveProgress();
+            document.getElementById('submitBtn').style.display = "none";
+            document.getElementById('nextBtn').style.display = "inline-block";
+            updateScoreboard();
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            saveProgress();
+            document.getElementById('submitBtn').style.display = "inline-block";
+            document.getElementById('nextBtn').style.display = "none";
+            loadQuestion();
+            updateScoreboard();
+        }
+
+        function switchMode() {
+            if (quizMode === "all") {
+                if (wrongQuestions.length === 0) {
+                    alert("No wrong answers to retry!");
+                    return;
+                }
+                quizMode = "wrong";
+                quizQuestions = wrongQuestions.slice();
+                currentIndex = 0;
+                correctCount = 0;
+                localStorage.removeItem('safetyQuizCurrentIndex');
+                localStorage.removeItem('safetyQuizCorrectCount');
+            } else {
+                quizMode = "all";
+                quizQuestions = allQuestions.slice();
+                currentIndex = 0;
+                correctCount = 0;
+            }
+            document.getElementById('modeBtn').textContent = quizMode === "all" ? "Retry Wrong Answers" : "Back to All Questions";
+            updateScoreboard();
+            loadQuestion();
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', checkAnswer);
+        document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+        document.getElementById('modeBtn').addEventListener('click', switchMode);
+
+        window.onload = function () {
+            updateScoreboard();
+            loadQuestion();
+        };
+    </script>
+</body>
+
+</html>
